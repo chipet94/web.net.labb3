@@ -1,0 +1,62 @@
+﻿@model IEnumerable<web.net.labb3.Models.Screening>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Movie", "Index", new { sortOrder = ViewBag.MovieSortString})
+            </th>
+            <th>
+                @Html.ActionLink("Time", "Index", new { sortOrder = ViewBag.TimeSortString })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salon.Seats)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@item.MovieID">
+                        @Html.DisplayFor(modelItem => item.Movie.Title)
+                    </a>
+                </td>
+                <td>
+                    <div>
+                        <small>(@Html.DisplayFor(m => item.Date))</small>
+                        @Html.DisplayFor(m => item.Time)
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salon.Name)
+                </td>
+                <td>
+                    @if (item.FreeSeats <= 0)
+                    {
+                        <span class="badge badge-warning badge-pill">@item.FreeSeats</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-primary badge-pill">@item.FreeSeats</span>
+                    }
+                </td>
+                <td>
+                    @if (item.FreeSeats > 0)
+                    {
+                        <a asp-controller="Tickets" asp-action="Create" asp-route-id="@item.ScreeningID">
+                            <input type="button" value="Reserve" class="btn btn-info" />
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

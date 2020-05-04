@@ -1,0 +1,67 @@
+﻿@model web.net.labb3.Models.TicketViewModel
+
+@{
+    ViewData["Title"] = "Reserve";
+}
+
+    <h1>Reserve Seats</h1>
+<hr />
+<div class="container">
+        <div class="card">
+            <h5 class="card-header h5">Information</h5>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.LabelFor(model => model.Screening.Movie.Title)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(m => m.Screening.Movie.Title)
+
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.LabelFor(model => model.Screening.Date)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(m => m.Screening.Date)
+                        @Html.DisplayFor(m => m.Screening.Time)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.LabelFor(model => model.Screening.Salon)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Screening.Salon.Name)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.LabelFor(model => model.Screening.Price)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Screening.Price)kr (/ea)
+                    </dd>
+                    <dd class="col-sm-12">
+                        <form id="ticket_form" asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group row">
+                                <label asp-for="Ticket.Seats" class="col-sm-1"></label>
+                                <select asp-for="Ticket.Seats" asp-items="Model.SeatsListView" class="form-control-sm"></select>
+                                <span asp-validation-for="Ticket.Seats" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Ticket.ScreeningID" value="@Model.Screening.ScreeningID" />
+                                <div class="btn-group">
+                                    <a asp-controller="Home" asp-action="Index">
+                                        <input type="button" value="Cancel" class="btn btn-danger" />
+                                    </a>
+                                    <input type="submit" value="Continue" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </form>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+    </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

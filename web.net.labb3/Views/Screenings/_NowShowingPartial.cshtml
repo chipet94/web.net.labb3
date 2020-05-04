@@ -1,0 +1,42 @@
+﻿@model IEnumerable<web.net.labb3.Models.Screening>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salon.Name)
+                </td>
+                <td>
+                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@item.MovieID">
+                        @Html.DisplayFor(modelItem => item.Movie.Title)
+                    </a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

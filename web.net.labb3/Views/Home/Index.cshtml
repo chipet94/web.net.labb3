@@ -1,0 +1,78 @@
+﻿@model SalonsViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="text-center">
+        <h1 class="display-4">Welcome!</h1>
+        <h2>To Berra's Awesome Cinema.</h2>
+        <p>The website is 100% written in c#, no fancy Javascript or custom CSS. Only CS and CSHTML. Only as a personal challenge.</p>
+        <div id="nowShowingList" class="card">
+            <div class="card-body">
+                <h5 class="card-header h5">Now Showing</h5>
+                @await Html.PartialAsync("~/Views/Screenings/_NowShowingPartial.cshtml", Model.NowShowing)
+            </div>
+        </div>
+        <div id="Uppgiften" class="container">
+            <h3>Uppgiften</h3>
+            <section>
+                <p>
+                    Baserat på ASP.NET MVC Core; Databas: SqlServer;
+                </p>
+            </section>
+            <h5>För G</h5>
+            <div class="text-left">
+                <section>
+                    <p class="text-danger">
+                        Berras Bio är en liten biograf som vill ha ett webbaserat bokningssystem. En besökare ska kunna
+                        se en lista på vilka filmer som går idag. För varje film ska det framgå vad filmen heter, när den
+                        börjar och hur många platser det är kvar i salongen.
+                    </p>
+                    <p>
+                        Detta finner du längre ner på denna sidan (index).
+                    </p>
+                </section>
+                <section>
+                    <p class="text-danger">
+                        Man ska på något sätt kunna välja en visning och antal biljetter man vill ha. När man valt klart ska
+                        en bokningsbekräftelse visas.
+                    </p>
+                    <p>
+                        Om du klickar på 'Reserve' på någon utav visningarna i 'Upcoming' blir du bemött av bokningssidan. Just nu kan du bara välja hur många platser du vill ha,
+                        hade jag haft mer motivation och tid så skulle man få fylla i mer vettig information som namn eller telefon också.
+                        När du väl klickat dig vidare så får du en bekräftelse som visar att din boking lagts in... den visar dock inget unikt ID eller dylikt atm, bara information
+                        om visningen. Bekräftelsen skickas via [Tempdata] så den har ingen route så du kan inte se den igen.
+                    </p>
+                </section>
+                <section>
+                    <p class="text-danger">
+                        Fullbokade filmer ska finnas kvar i listan, men ha ett annat utseende. Använd en annan CSS-klass.
+                        Berras Bio är liten och nischad. De visar samma filmer varje dag och har bara en salong med 50
+                        platser.
+                    </p>
+                    <p>
+                        Byter bara klass på Seats när en visning är full och den ändras via IF-statement i cshtml. Gömmer boka-knappen också.
+                    </p>
+                </section>
+
+                <section>
+                    <p class="text-danger">
+                        Tips: skriv SQL-kod som lägger in vissa visningar i databasen, så kan du enkelt återställa
+                        databasen till ursprungsskick.
+                    </p>
+                    <p>
+                        Skrev en hjälp-klass istället som kontrollerar om data finns. om det inte gör det så lägger den in några random exempel.
+                        Vet inte om den är godkänt implementerad - men den fungerar. Kallas i startup.cs under Configure. /CustomHelpers/ContextHelper.cs
+                    </p>
+                </section>
+            </div>
+        </div>
+
+        <div id="NextShowingList" class="card">
+            <div class="card-body">
+                <h5 class="card-header h5">Upcoming</h5>
+                @await Html.PartialAsync("~/Views/Screenings/_ShortShowingListPartial.cshtml", Model.SortScreenings(Model.Upcoming))
+            </div>
+        </div>
+    </div>
